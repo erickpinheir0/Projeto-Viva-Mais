@@ -1,0 +1,523 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Aplica Poppins como fonte padrão */
+}
+
+.logo {
+    position: absolute;
+    background-size: cover;
+    display:flex;
+    top: 0px;
+    left: -250px;
+}
+
+/* Configuração do fundo no body */
+body {
+    background: url('img8.png') no-repeat center center fixed; /* Certifique-se de usar o nome correto da imagem */
+    background-size: cover; /* Ajusta a imagem para cobrir toda a tela */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative; /* Para garantir que o fundo fique abaixo dos elementos */
+    margin: 0; /* Remove margens padrão */
+}
+
+/* Container principal */
+.container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* Largura máxima */
+    background: rgb(0, 13, 13, 1); /* Fundo opaco para cobrir o background */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    z-index: 1; /* Garante que o conteúdo fique acima do fundo */
+    margin: 20px auto; /* Adiciona margem para criar espaço ao redor do container */
+}
+
+/* Restante do CSS permanece inalterado */
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1cffb3; /* Verde claro tecnológico */
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.split-container {
+    display: flex;
+    gap: 20px; /* Espaçamento entre as seções */
+    height: 80vh; /* Altura total do layout */
+}
+
+.results-section {
+    flex: 1; /* Ocupa 1 parte do layout */
+    background: rgba(255, 255, 255, 0.1); /* Fundo levemente brilhante */
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto; /* Scroll para muitos resultados */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.results-title {
+    font-size: 1.5rem;
+    color: #1cffb3;
+    margin-bottom: 10px;
+}
+
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-card {
+    background: #1a1a1a; /* Cor escura para destaque */
+    border: 1px solid #1cffb3; /* Borda verde */
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out; /* Adiciona fade-in */
+}
+
+.result-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.result-date {
+    font-size: 0.9rem;
+    color: #0ff; /* Azul-ciano */
+    margin-bottom: 5px;
+}
+
+.result-summary {
+    font-size: 1rem;
+    color: white;
+}
+
+.expand-details {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #1cffb3;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.chat-section {
+    flex: 2; /* Ocupa 2 partes do layout */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.circle-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1); /* Fundo transparente levemente brilhante */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.dna-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateZ(-20deg);
+    width: 150px;
+    height: 150px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+.dna-helix {
+    position: relative;
+    width: 1px;
+    height: 100px;
+    border: 1px dotted #e7e7e7;
+    box-shadow: 0 0 15px #e7e7e7;
+    background: transparent;
+    margin: 0px 10px;
+    animation: rotate 3s linear infinite;
+}
+
+.dna-helix::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: #1cffb3;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #1cffb3;
+}
+
+.dna-helix::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: #0ff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #0ff;
+}
+
+/* Estilo do botão Remover */
+.remove-button {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #ff9800; /* Laranja para destaque */
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.remove-button:hover {
+    color: #e68a00; /* Laranja mais escuro ao passar o mouse */
+}
+
+.dna-helix:nth-child(1) {
+    animation-delay: -0.15s;
+}
+.dna-helix:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.dna-helix:nth-child(3) {
+    animation-delay: -0.45s;
+}
+.dna-helix:nth-child(4) {
+    animation-delay: -0.6s;
+}
+.dna-helix:nth-child(5) {
+    animation-delay: -0.75s;
+}
+.dna-helix:nth-child(6) {
+    animation-delay: -0.9s;
+}
+.dna-helix:nth-child(7) {
+    animation-delay: -1.05s;
+}
+.dna-helix:nth-child(8) {
+    animation-delay: -1.2s;
+}
+.dna-helix:nth-child(9) {
+    animation-delay: -1.35s;
+}
+.dna-helix:nth-child(10) {
+    animation-delay: -1.5s;
+}
+.dna-helix:nth-child(11) {
+    animation-delay: -1.65s;
+}
+.dna-helix:nth-child(12) {
+    animation-delay: -1.8s;
+}
+.dna-helix:nth-child(13) {
+    animation-delay: -1.95s;
+}
+.dna-helix:nth-child(14) {
+    animation-delay: -2.1s;
+}
+.dna-helix:nth-child(15) {
+    animation-delay: -2.25s;
+}
+.dna-helix:nth-child(16) {
+    animation-delay: -2.4s;
+}
+
+.chat-box {
+    width: 100%;
+    height: 300px; /* Altura fixa */
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow-y: auto; /* Habilita a rolagem vertical */
+    overflow-x: hidden; /* Remove a rolagem horizontal */
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    scroll-behavior: smooth; /* Rolagem suave (opcional) */
+}
+
+/* Mensagens */
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden; /* Garante que não haja transbordamento */
+}
+
+/* Animação para mensagens */
+.message {
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+    word-wrap: break-word;
+    animation: fadeIn 0.5s ease-in-out; /* Aplica a animação */
+    transform-origin: top; /* Garante que a animação comece de cima */
+}
+
+/* Animação para mensagens do usuário */
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animação para mensagens da IA */
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Mensagens do usuário */
+.user-message {
+    background-color: #1cffb3;
+    align-self: flex-end;
+    color: black;
+    max-width: 60%; /* Reduz a largura máxima */
+    animation: slideRight 0.5s ease-in-out; /* Efeito de entrada à direita */
+}
+
+/* Mensagens da IA */
+.ai-message {
+    background-color: #0ff;
+    align-self: flex-start;
+    color: black;
+    max-width: 60%; /* Reduz a largura máxima */
+    animation: slideLeft 0.5s ease-in-out; /* Efeito de entrada à esquerda */
+}
+
+.chat-box {
+    scrollbar-width: thin; /* Para navegadores Firefox */
+    scrollbar-color: #333 #000d0d; /* Cor do thumb e track */
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 8px; /* Largura do scroll */
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: #000d0d; /* Fundo do scroll */
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: #333; /* Cor do thumb */
+    border-radius: 4px; /* Borda arredondada */
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor do thumb ao passar o mouse */
+}
+
+/* Estilo da frase inicial */
+.initial-message {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(23%, 125%);
+    font-size: 1.5rem;
+    color: rgba(206, 206, 206, 0.836);
+    opacity: 0; /* Inicia invisível */
+    animation: fadeIn 1s ease-in-out forwards; /* Animação de entrada */
+    z-index: 2; /* Garante que fique acima das mensagens */
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animação de fade-out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.initial-message.fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards; /* Animação de saída */
+}
+
+/* Estilo da mensagem "Nenhuma análise no momento..." */
+.no-results-message {
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    opacity: 0; /* Inicia invisível */
+    animation: fadeIn 1s ease-in-out forwards; /* Animação de entrada */
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-top: 10px;
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: black; /* Alteração da cor da fonte para preto */
+    background-color: #1cffb3;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #17b890;
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adiciona sombra */
+}
+
+.send-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: black; /* Alteração da cor da fonte para preto */
+    background-color: #1cffb3; /* Mesma cor do título */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: #17b890; /* Verde mais escuro */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adiciona sombra */
+}
+
+.archive-button {
+    padding: 10px 20px;
+    font-family: 'Poppins', sans-serif; /* Aplica Poppins aos botões */
+    font-size: 1rem;
+    color: black; /* Cor da fonte preta */
+    background-color: #ff9800; /* Laranja para destaque */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.archive-button:hover {
+    background-color: #e68a00; /* Laranja mais escuro */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adiciona sombra */
+}
+
+/* Estilo do botão Limpar Chat */
+.clear-chat-button {
+    padding: 10px 20px;
+    font-family: 'Poppins', sans-serif; /* Aplica Poppins aos botões */
+    font-size: 1rem;
+    color: black; /* Cor da fonte preta */
+    background-color: #ff5252; /* Vermelho vibrante */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.clear-chat-button:hover {
+    background-color: #e60000; /* Vermelho mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adiciona sombra */
+}
+
+.message-input {
+    width: 100%; /* Largura aumentada */
+    height: 100px; /* Altura aumentada */
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    background-color: #333; /* Cor acinzentada */
+    color: white; /* Fonte branca */
+    transition: box-shadow 0.3s ease;
+}
+
+.message-input:focus {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
