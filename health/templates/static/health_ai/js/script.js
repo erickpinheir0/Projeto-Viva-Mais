@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100); // Atraso de 100ms para garantir que a animação termine
     }
 
-    // Função para simular a resposta da IA
+    // ***Função para simular a resposta da IA IMPLANTAR AQUI
     function simulateAIResponse(userMessage) {
         return new Promise((resolve) => {
             setTimeout(() => {

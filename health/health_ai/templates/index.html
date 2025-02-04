@@ -50,12 +50,12 @@
                     <div class="messages" id="messages"></div>
                 </div>
                 <!-- Upload de arquivo e caixa de texto -->
-                <div class="message-box">
-                    <textarea placeholder="Escreva sua mensagem aqui..." class="message-input" id="userInput"></textarea>
+                    <div class="message-box">
+                        <textarea placeholder="Escreva sua mensagem aqui..." class="message-input" id="userInput" name="userInput"></textarea>
                     <div class="button-container">
                         <label for="fileInput" class="upload-label">Enviar Exame</label>
                         <input type="file" id="fileInput" accept=".pdf" style="display: none;">
-                        <button class="send-button" id="sendButton">Enviar</button>
+                        <button type="submit" class="send-button" id="sendButton">Enviar</button>
                         <button class="archive-button" id="archiveButton">Arquivar</button>
                         <button id="clearChatButton" class="clear-chat-button">Limpar Chat</button>
                     </div>
