@@ -50,8 +50,24 @@
                     <div class="messages" id="messages"></div>
                 </div>
                 <!-- Upload de arquivo e caixa de texto -->
-                    <div class="message-box">
+                <div class="message-box">
+                    <form id="novaMensagem" method="POST" action="/chat/">
+                        {% csrf_token %}
                         <textarea placeholder="Escreva sua mensagem aqui..." class="message-input" id="userInput" name="userInput"></textarea>
+                            <script>
+                                document.getElementById('userInput').addEventListener('keydown', event => {
+                                    if (event.key === 'Enter') {
+                                        const message = document.getElementById('userInput').value;
+                                        if (message != "") {
+                                            console.log("Mensagem enviada:", message);
+                                        } else {
+                                            console.log("Nenhuma mensagem enviada");
+                                        }   
+                                    }
+                                });
+                            </script>
+                    </form>
+                </div>
                     <div class="button-container">
                         <label for="fileInput" class="upload-label">Enviar Exame</label>
                         <input type="file" id="fileInput" accept=".pdf" style="display: none;">
