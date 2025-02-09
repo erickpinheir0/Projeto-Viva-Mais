@@ -57,15 +57,28 @@
                             <script>
                                 document.getElementById('userInput').addEventListener('keydown', event => {
                                     if (event.key === 'Enter') {
-                                        const message = document.getElementById('userInput').value;
+                                        var message = document.getElementById('userInput').value;
                                         if (message != "") {
                                             console.log("Mensagem enviada:", message);
                                         } else {
                                             console.log("Nenhuma mensagem enviada");
                                         }   
-                                    }
-                                });
-                            </script>
+                                    
+
+                                try {
+                                    var response = fetch('/chat/', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ message }),
+                                    });
+                                } catch (e) {
+                                    console.error("Erro ao enviar mensagem:", e);
+                                }
+                                }
+                            });
+                        </script>
                     </form>
                 </div>
                     <div class="button-container">
