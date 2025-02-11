@@ -14,18 +14,21 @@ def chat(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            message = data.get('message')
+            message_json = data.get('message')
+            message = json.dumps(message_json, ensure_ascii=False)
+            
             ai_bot = AI_Bot()
+            print(message)
 
-            response = ai_bot.invoke(question=message)
+            resposta = ai_bot.invoke(question=message)
+            print(resposta)
 
             if message:
                 Message.objects.create(content=message)
-                return JsonResponse(response, safe=False, status=200)
+                return JsonResponse(resposta, safe=False, status=200)
             else:
                 return JsonResponse('Mensagem vazia', safe=False, status=400)
         except json.JSONDecodeError:
             return JsonResponse('Erro ao decodificar JSON', safe=False, status=400)
     return render(request, 'index.html')
-
 # Create your views here.
