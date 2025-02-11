@@ -1,17 +1,19 @@
 import os
-from decouple import config
+from dotenv import load_dotenv
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_groq import ChatGroq
 
-os.environ["GROQ_API_KEY"] = config("GROQ_API_KEY")
+load_dotenv()
+
+os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
 class AI_Bot:
     
     def __init__(self):
         self.model = ChatGroq(model="deepseek-r1-distill-llama-70b")
 
-    def invoke(self, query):
+    def invoke(self, question):
         prompt = PromptTemplate(
             input_variables=["text"], 
             template='''Você é um especialista da área da saúde, você deve analisar os sintomas do paciênte, realizar perguntas de como o paciênte está se sentindo e realizar um 
@@ -21,11 +23,11 @@ class AI_Bot:
             que o paciênte possa entender.
             Seja sempre amigavel, procurando entender o que está se passando com paciênte e com o usuário
             <text>
-            {query}
+            {text}
             <text>
             '''
         )
         chain = prompt | self.model | StrOutputParser()
-        resposta = chain.invoke({"text": query})
+        resposta = chain.invoke({"text": question})
         return resposta
     

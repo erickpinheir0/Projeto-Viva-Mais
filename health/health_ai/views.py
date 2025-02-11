@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import Message
+from .bot import AI_Bot
 
 
 def index(request):
@@ -14,10 +15,13 @@ def chat(request):
         try:
             data = json.loads(request.body)
             message = data.get('message')
+            ai_bot = AI_Bot()
+
+            response = ai_bot.invoke(question=message)
 
             if message:
                 Message.objects.create(content=message)
-                return JsonResponse('Mensagem recebida com sucesso!', safe=False, status=200)
+                return JsonResponse(response, safe=False, status=200)
             else:
                 return JsonResponse('Mensagem vazia', safe=False, status=400)
         except json.JSONDecodeError:
