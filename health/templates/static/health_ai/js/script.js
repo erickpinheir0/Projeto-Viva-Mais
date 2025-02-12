@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatBox = document.querySelector(".chat-box"); // Contêiner de histórico de mensagens
     const fileInput = document.getElementById("fileInput");
     const resultsList = document.getElementById("resultsList");
+    const urlpost = "/VivaMais/post/";
+    const urlget = "/VivaMais/get/";
     let currentConversation = [];
 
     // Função para adicionar a frase inicial
@@ -48,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100); // Atraso de 100ms para garantir que a animação termine
     }
 
+    // ***Função para processar e tratar a resposta da IA 
     function responseIA(resposta) {
             // Remove blocos indesejados (como <think>)
         if (resposta.includes("<think>") && resposta.includes("</think>")) {
@@ -61,26 +64,39 @@ document.addEventListener("DOMContentLoaded", () => {
             return `Resposta da IA: "${resposta}"`;
     }
 
-    // ***Função para simular a resposta da IA IMPLANTAR AQUI
-    async function simulateAIResponse(text) {
-        return fetch("/VivaMais/chat/", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: text }),
-        }).then(response => response.json()).then(resposta => responseIA(resposta)).catch(error => {
-            console.error("Erro ao obter resposta da IA:", error);
-        });
-    }
-
     // Evento de envio de mensagem
     async function sendMessage() {
-        const userMessage = userInput.value.trim();
+        var userMessage = userInput.value.trim();
         if (!userMessage) return;
 
         // Adiciona a mensagem do usuário
         addMessage(userMessage, "user");
+
+        try {
+            fetch(urlpost, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userMessage }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao enviar a mensagem');
+                }
+                return response.json()})
+            .then(postResponse => {
+                console.log('Success:', postResponse);
+                return fetch(urlget)
+            }).then(getResponse => {
+                if (!getResponse.ok) {
+                    throw new Error('Erro ao receber a mensagem');
+                }
+                return getResponse.json()
+        }).then(resposta => {responseIA(resposta)})
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
         // Limpa a caixa de texto
         userInput.value = ""; // Limpa completamente o campo
@@ -89,8 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
         userInput.focus();
 
         // Simula a resposta da IA
-        const aiResponse = await simulateAIResponse();
+        const aiResponse = resposta;
         addMessage(aiResponse, "ai");
+        }
+        catch(error) {
+            console.error('Error:', error);
+        }
     }
 
     // Evento de clique no botão "Enviar"

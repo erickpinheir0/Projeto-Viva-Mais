@@ -63,20 +63,9 @@
                                         } else {
                                             console.log("Nenhuma mensagem enviada");
                                         }   
-                                try {
-                                    var response = fetch('/VivaMais/chat/', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({ message }),
-                                    });
-                                } catch (e) {
-                                    console.error("Erro ao enviar mensagem:", e);
-                                }
-                                }
-                            });
-                        </script>
+                                    }
+                                });
+                            </script>
                     </form>
                 </div>
                     <div class="button-container">
