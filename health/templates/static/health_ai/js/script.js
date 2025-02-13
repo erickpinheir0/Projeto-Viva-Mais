@@ -32,7 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
         messageDiv.classList.add(sender === "user" ? "user-message" : "ai-message");
-        messageDiv.textContent = text;
+        
+        if (sender === "ai") {
+            // Substitui quebras de linha por <br>
+            const formattedText = text.replace(/\n/g, '<br>');
+            messageDiv.innerHTML = formattedText;
+        } else {
+            messageDiv.textContent = text;
+        }
 
         // Adiciona a mensagem ao contêiner
         const messagesContainer = document.getElementById("messages");
@@ -42,8 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentConversation.push({ sender, text });
 
         // Força o reflow para garantir que o layout seja recalculado
-        void chatBox.offsetHeight;
-
+        void messageDiv.offsetHeight;
         // Aguarda a animação terminar e rola automaticamente para baixo
         setTimeout(() => {
             chatBox.scrollTop = chatBox.scrollHeight; // Aplica o scroll ao chat-box
@@ -60,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Converte sequências Unicode para caracteres legíveis
         resposta = resposta.replace(/\\u([\d\w]{4})/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
         // Remove quebras de linha e espaços extras
-        resposta = resposta.replace(/\n/g, " ").trim();
-            return `Resposta da IA: "${resposta}"`;
+      //  resposta = resposta.replace(/\n/g, " ").trim();
+            addMessage(`Resposta da IA: "${resposta}"`, "ai") // Adiciona a mensagem ao chat;
     }
 
     // Evento de envio de mensagem
@@ -69,47 +75,30 @@ document.addEventListener("DOMContentLoaded", () => {
         var userMessage = userInput.value.trim();
         if (!userMessage) return;
 
-        // Adiciona a mensagem do usuário
+        // Exibe mensagem do usuário
         addMessage(userMessage, "user");
+        userInput.value = "";
+        userInput.focus();
 
         try {
-            fetch(urlpost, {
+            const response = await fetch(urlpost, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ message: userMessage }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao enviar a mensagem');
-                }
-                return response.json()})
-            .then(postResponse => {
-                console.log('Success:', postResponse);
-                return fetch(urlget)
-            }).then(getResponse => {
-                if (!getResponse.ok) {
-                    throw new Error('Erro ao receber a mensagem');
-                }
-                return getResponse.json()
-        }).then(resposta => {responseIA(resposta)})
-        .catch(error => {
+            });
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status}`);
+            }
+            const data = await response.json();
+            // Utiliza a resposta retornada do POST
+            if (data.response) {
+                responseIA(data.response);
+            }
+        } catch (error) {
             console.error('Error:', error);
-        });
-
-        // Limpa a caixa de texto
-        userInput.value = ""; // Limpa completamente o campo
-
-        // Mantém o foco no campo de texto
-        userInput.focus();
-
-        // Simula a resposta da IA
-        const aiResponse = resposta;
-        addMessage(aiResponse, "ai");
-        }
-        catch(error) {
-            console.error('Error:', error);
+            addMessage("Erro ao processar mensagem", "error");
         }
     }
 

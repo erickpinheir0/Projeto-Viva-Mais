@@ -296,6 +296,7 @@ body {
 
 /* Animação para mensagens */
 .message {
+    white-space: pre-wrap;
     max-width: 80%;
     padding: 10px;
     border-radius: 10px;
@@ -340,6 +341,7 @@ body {
 
 /* Mensagens da IA */
 .ai-message {
+    white-space: pre-wrap;
     background-color: #0ff;
     align-self: flex-start;
     color: black;

@@ -5,7 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Message
 from .bot import AI_Bot
 
-
 def index(request):
     return render(request, 'index.html')
 
@@ -16,25 +15,26 @@ def post(request):
             data = json.loads(request.body)
             message = data.get('message')
             
-            ai_bot = AI_Bot()
-            print(message)
-
-            resposta = ai_bot.invoke(question=message)
-            print(resposta)
-
-            if message:
+            if message and message.strip():
+                ai_bot = AI_Bot()  
+                print("Mensagem recebida:", message)
+                resposta = ai_bot.invoke(question=message)
+                print("Resposta da IA:", resposta)
+    
+                # Salva a mensagem do usuário e a resposta da IA
                 Message.objects.create(content=message)
                 Message.objects.create(content=resposta)
-                return JsonResponse(resposta, safe=False, status=200)
+                
+                # Retorna a resposta diretamente
+                return JsonResponse({'response': resposta}, safe=False, status=200)
             else:
-                return JsonResponse('Mensagem vazia', safe=False, status=400)
+                return JsonResponse({'error': 'Mensagem vazia'}, safe=False, status=400)
         except json.JSONDecodeError:
-            return JsonResponse('Erro ao decodificar JSON', safe=False, status=400)
+            return JsonResponse({'error': 'Erro ao decodificar JSON'}, safe=False, status=400)
     return render(request, 'index.html')
 
 def get(request):
     if request.method == "GET":
-        mensagemIA = Message.objects.all().order_by('-criado_em')
-        return JsonResponse(mensagemIA, safe=False, status=200)
+        mensagens = Message.objects.all().order_by('-criado_em').values()  # converte para QuerySet de dicionários
+        return JsonResponse(list(mensagens), safe=False, status=200)
     return render(request, 'index.html')
-# Create your views here.

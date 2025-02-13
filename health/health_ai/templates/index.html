@@ -50,8 +50,7 @@
                     <div class="messages" id="messages"></div>
                 </div>
                 <!-- Upload de arquivo e caixa de texto -->
-                <div class="message-box">
-                    <form id="novaMensagem" method="POST" action="/chat/">
+                    <div class="message-box">
                         {% csrf_token %}
                         <textarea placeholder="Escreva sua mensagem aqui..." class="message-input" id="userInput" name="userInput"></textarea>
                             <script>
@@ -66,8 +65,7 @@
                                     }
                                 });
                             </script>
-                    </form>
-                </div>
+                    </div>
                     <div class="button-container">
                         <label for="fileInput" class="upload-label">Enviar Exame</label>
                         <input type="file" id="fileInput" accept=".pdf" style="display: none;">
@@ -80,6 +78,9 @@
         </div>
     </div>
     <img src="{% static 'health_ai/img/img8.png' %}" class="logo">
+    <script>
+        const urlpost = "{% url 'post' %}";
+    </script>
     <script src="{% static 'health_ai/js/script.js' %}"></script>
 </body>
 </html>
